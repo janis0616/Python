@@ -1,4 +1,8 @@
-#HOW MANY RECORDS IN THE MULTI-FASTA?
+#A collection of Python scripts to do basic operations on a multi-fasta file
+#1. How many records in the multi-fasta? 
+#2. What are the lengths of the sequences in the multi-fasta? (Makes a dictionary with keys=sequence names, values=lengths; also makes a dictionary of values=sequences)
+
+#1. HOW MANY RECORDS IN THE MULTI-FASTA?
 #open the fasta file
 sequence = open("./dna.example.fasta", "r")
 #make a list
@@ -15,7 +19,7 @@ print("The number of records in the FASTA file is:", len(number_list))
 sequence.close()
 
 
-#WHAT ARE THE LENGTHS OF THE SEQUENCES IN THE MULTI-FASTA?
+#2. WHAT ARE THE LENGTHS OF THE SEQUENCES IN THE MULTI-FASTA?
 #open the fasta file
 sequence = open("./dna.example.fasta", "r")
 sequence_read = sequence.read()
