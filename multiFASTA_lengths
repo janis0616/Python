@@ -4,7 +4,7 @@ file=input("Input file:")
 sequence=open(file, "r")
 #read the fasta file
 sequence_read=sequence.read()
-#make some empty lists and dictionaries
+#make some empty lists
 keys=[]
 keys2=[]
 values=[]
