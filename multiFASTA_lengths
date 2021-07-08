@@ -1,0 +1,37 @@
+#WHAT ARE THE LENGTHS OF THE SEQUENCES IN THE MULTI-FASTA?
+#open the fasta file
+sequence=open("./dna.example.fasta", "r")
+#read the fasta file
+sequence_read=sequence.read()
+#make some empty lists and dictionaries
+keys=[]
+keys2=[]
+values=[]
+values2=[]
+lengths=[]
+#split the multi-fasta at each occurrance of ">"
+sequence_list=sequence_read.split(">")
+#find the end of the description section for each sequence
+for record in sequence_list[1:]:
+    end=record.find("\n")
+    end1=end+1
+#add the descriptions to the keys list and the sequences to the values list
+    keys.append(record[0:end1])
+    values.append(record[end1:])
+#remove the newlines
+for eachkey in keys:
+    keys2.append(eachkey.replace("\n", ""))
+for eachvalue in values:
+    values2.append(eachvalue.replace("\n", ""))
+#make a list with the sequence lengths
+for eachvalue in values2:
+    lengths.append(len(eachvalue))  
+#make a dictionary with the keys and sequence lengths
+length_dict=dict(zip(keys2, lengths))
+#sort dictionary by length
+length_dict_sorted=sorted(length_dict.items(), key=lambda x:x[1], reverse=False)
+#print the sequence descriptors and sequence lengths (in size order from shortest to longest)
+for i in length_dict_sorted:
+    print("Sequence Name:", i[0], "... Sequence Length:", i[1], "bp")
+#close the fasta file
+sequence.close()
