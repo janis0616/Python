@@ -1,6 +1,7 @@
 #WHAT ARE THE LENGTHS OF THE SEQUENCES IN THE MULTI-FASTA?
 #open the fasta file
-sequence=open("./dna.example.fasta", "r")
+file=input("Input file:")
+sequence=open(file, "r")
 #read the fasta file
 sequence_read=sequence.read()
 #make some empty lists and dictionaries
