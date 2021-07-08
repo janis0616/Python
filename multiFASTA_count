@@ -1,0 +1,15 @@
+#HOW MANY RECORDS IN THE MULTI-FASTA?
+#open the fasta file
+sequence=open("./dna.example.fasta", "r")
+#make a list
+number_list=[]
+#iterate over each line of the sequence
+for line in sequence:
+#find each line that starts with > 
+    if line[0]==">":
+#add those lines to the list
+        number_list.append(str(line))
+#print the length of the list (# records in fasta)
+print("The number of records in the FASTA file is:", len(number_list))
+#close the fasta file
+sequence.close()
