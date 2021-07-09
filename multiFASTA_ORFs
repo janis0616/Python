@@ -1,1 +1,74 @@
-
+#DETERMINE LENGTHS OF ORFS
+#open the fasta file
+file=input("Input file:")
+sequence=open(file, "r")
+#read the fasta file
+sequence_read=sequence.read()
+#make some empty lists
+keys=[]
+keys2=[]
+values=[]
+values2=[]
+lengths=[]
+ORF_names=[]
+ORF_lengths=[]
+#split the multi-fasta at each occurrance of ">"
+sequence_list=sequence_read.split(">")
+#find the end of the description section for each sequence
+for record in sequence_list[1:]:
+    end=record.find("\n")
+    end1=end+1
+#add the descriptions to the keys list and the sequences to the values list
+    keys.append(record[0:end1])
+    values.append(record[end1:])
+#remove the newlines
+for eachkey in keys:
+    keys2.append(eachkey.replace("\n", ""))
+for eachvalue in values:
+    values2.append(eachvalue.replace("\n", ""))
+#define the start and stop codons 
+start_codons=['ATG','atg']
+stop_codons=['TAA','TAG','TGA','taa','tag','tga']
+#for each record in the fasta file...
+for dna in values2:
+    #for each reading frame...
+    for frame in (0, 1, 2):
+        #for the start of the reading frame to the end, by 3s
+         for i in range(frame, len(dna), 3):
+                #each codon is made up of 3 consecutive nucleotides
+                codon1=dna[i:i+3]
+                #if the codon is a start codon...
+                if codon1 in start_codons:
+                    #find the index of the codon
+                    position1=dna.index(codon1)
+                    #determine the starting position of the ORF
+                    ORF_start=position1+1
+                    #for each position in the range of the ORF, in 3s...
+                    for j in range(position1, len(dna), 3):
+                        #now scan the rest of the ORF
+                        codon2=dna[j:j+3]
+                        #if you find a stop codon...
+                        if codon2 in stop_codons:
+                            #determine the position of the codon
+                            position2=dna.index(codon2)
+                            #determine the end of the ORF
+                            ORF_stop=position2+1
+                            #if the ORF actually contains any nucleotides...
+                            if len(dna[ORF_start:ORF_stop]) > 0:
+                                #retrieve the name of the DNA sequence
+                                k=keys2[values2.index(dna)]
+                                #combine the items you will want in your dictionary keys
+                                l=(k, frame+1)
+                                #make the list of keys for the dictionary
+                                ORF_names.append(l)
+                                #make the list of values for the dictionary
+                                ORF_lengths.append(len(dna[ORF_start:ORF_stop])+2)
+                                break
+                            break
+                    break
+#make the dictionary
+ORF_dict=dict(zip(ORF_names, ORF_lengths))
+#print the dictionary
+for key, value in ORF_dict.items():
+    print(key, ":", value)
+#the dictionary should print as: ([sequence name], [reading frame]) : [length of ORF]
