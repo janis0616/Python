@@ -63,4 +63,6 @@ ORF_dict=dict(zip(ORF_names, ORF_lengths))
 #print the dictionary
 for key, value in ORF_dict.items():
     print(key, ":", value)
+#close the fasta file
+sequence.close()
 #the dictionary should print as: ([sequence name], [reading frame]) : [length of ORF]
