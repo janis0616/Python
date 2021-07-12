@@ -1,0 +1,65 @@
+#input desired repeat length
+repeat_length=input("What is the repeat length?")
+#define list-counting function:
+def get_unique_numbers(numbers):
+    unique = []
+    for number in numbers:
+        if number in unique:
+            continue
+        else:
+            unique.append(number)
+    return unique
+#open the fasta file
+file=input("Input file:")
+sequence=open(file, "r")
+#read the fasta file
+sequence_read=sequence.read()
+#make some empty lists
+keys=[]
+keys2=[]
+values=[]
+values2=[]
+kmers_list=[]
+repeats_list=[]
+#split the multi-fasta at each occurrance of ">"
+sequence_list=sequence_read.split(">")
+#find the end of the description section for each sequence
+for record in sequence_list[1:]:
+    end=record.find("\n")
+    end1=end+1
+#add the descriptions to the keys list and the sequences to the values list
+    keys.append(record[0:end1])
+    values.append(record[end1:])
+#remove the newlines
+for eachkey in keys:
+    keys2.append(eachkey.replace("\n", ""))
+for eachvalue in values:
+    values2.append(eachvalue.replace("\n", ""))
+#read each sequence in the multi-fasta
+for dna in values2:
+    #determine the name of the sequence
+    dna_name=keys2[values2.index(dna)]
+    #for each nucleotide in the dna sequence, add to kmers_list the kmer of k=repeat_length
+    for i in dna[0:]:
+        #determine the start and end for each repeat
+        kmer_start=dna.index(i)
+        kmer_end=dna.index(i)+int(repeat_length)+1
+        #add the kmer to the list
+        kmers_list.append(dna[kmer_start:kmer_end])
+    #go through the list of kmers; only add to the repeat list if it occurs more than once
+    for record in kmers_list:
+        if kmers_list.count(record) > 1:
+            repeats_list.append(record)
+    #get a list of just one of each repeat
+    repeats_unique=get_unique_numbers(repeats_list)
+    #print the results
+    for c in repeats_unique:
+        a=(dna_name, c)
+        e=str(a)
+        d=repeats_list.count(c)
+        print(e, d)
+    #empty the lists so they can be re-used for the next dna sequence
+    kmers_list=[]
+    repeats_list=[]
+#close the fasta file
+sequence.close()
