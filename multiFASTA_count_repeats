@@ -1,3 +1,6 @@
+###Needs troubleshooting; do not use
+
+#COUNTS ANY REPEATS OF A GIVEN LENGTH
 #input desired repeat length
 repeat_length=input("What is the repeat length?")
 #define list-counting function:
