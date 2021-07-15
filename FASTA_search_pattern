@@ -1,0 +1,46 @@
+#SEARCH FOR A GIVEN PATTERN IN A DNA SEQUENCE
+
+#Find reverse complement of a string
+def reverseComplement(s):
+    complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N': 'N'}
+    t = ''
+    for base in s:
+        t = complement[base] + t
+    return t
+
+#Read a fasta file
+def readGenome(filename):
+    genome = ''
+    with open(filename, 'r') as f:
+        for line in f:
+            # ignore header line with genome information
+            if not line[0] == '>':
+                genome += line.rstrip()
+    return genome
+#Find how many times a pattern is found in a string
+
+def naive(p, t):
+    occurrences = []
+    for i in range(len(t) - len(p) + 1):  # loop over alignments
+        match = True
+        for j in range(len(p)):  # loop over characters
+            if t[i+j] != p[j]:  # compare characters
+                match = False
+                break
+        if match:
+            occurrences.append(i)  # all chars matched; record
+    return occurrences
+
+#Enter the pattern and find the reverse complement
+pattern=input("Enter the pattern:")
+pattern_reverse=reverseComplement(pattern)
+print("searching for ", pattern, "and ", pattern_reverse)
+file=input("Enter the file name:")
+sequence=readGenome(file)
+if pattern != pattern_reverse:
+    result1=naive(pattern, sequence)
+    result2=naive(pattern_reverse, sequence)
+    print("Number of occurrances, total: ", len(result1)+len(result2), "\n", "Number of occurances of forward pattern: ", len(result1), "\n", result1, "\n", "Number of occurances of reverse pattern: ", len(result2), "\n", result2)
+if pattern == pattern_reverse:
+    result3=naive(pattern, sequence)
+    print("Number of occurrances: ", len(result3), "\n", result3)
