@@ -1,3 +1,5 @@
+###Needs troubleshooting, do not use
+
 #DETERMINE LENGTHS OF ORFS
 #open the fasta file
 file=input("Input file:")
