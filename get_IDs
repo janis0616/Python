@@ -1,0 +1,28 @@
+#Given a tsv file with samples as rows and two columns describing the sample name (i.e. ID type 1 and ID type 2) 
+# and a list of names in format of ID type 2, 
+# print the corresponding ID type 1 value.
+
+reference="./reference_file.csv"
+ref=open(reference, "r")
+input_entry="./input_list.txt"
+input_open=open(input_entry, "r")
+input_read=input_open.read().splitlines()
+keys=[]
+keys2=[]
+values=[]
+values2=[]
+for record in ref:
+    end=record.find("\t")
+    end1=end+1
+    values.append(record[0:end1])
+    keys.append(record[end1:])
+for eachkey in keys:
+    keys2.append(eachkey.replace("\n", "").replace("\t", ""))
+for eachvalue in values:
+    values2.append(eachvalue.replace("\n", "").replace("\t", ""))
+dict_IDs=dict(zip(keys2, values2))
+for line in input_read:
+    if line not in dict_IDs.keys():
+        print("not found")
+    if line in dict_IDs.keys():
+        print(dict_IDs[line])
