@@ -1,20 +1,11 @@
 #SEARCH A TABLE AND PULL SELECTED INFORMATION FROM IT
 #You must provide: a reference table (csv, tsv, or xls file) with each sample as a row and each characteristic (age, gender, collection date, etc.) as a column;
 #the ID you will be using to look up samples must be the first column. It doesn't matter if there are column headers or not. 
-#You need to know the number of each column you want (first column is 1).
 #You must also provide: an input list with the sample IDs you want to look up (csv, tsv, xls, or txt file), with the IDs each on a separate line.
 reference=input("What is the reference table?")
 ref_open=open(reference, "r")
 input_entry=input("What is the input list?")
 input_open=open(input_entry, "r")
-output_list=[]
-a=0
-while a == 0:
-    output=input("Which column do you want to print? Input one at a time.")
-    output_list.append(output)
-    done=input("Are you done selecting columns? Type y or n")
-    if done is "y":
-        a+=1
 input_read=input_open.read().splitlines()
 keys=[]
 keys2=[]
@@ -32,7 +23,7 @@ for eachvalue in values:
 dict_IDs=dict(zip(keys2, values2))
 for line in input_read:
     if line not in dict_IDs.keys():
-        print("N/A")
+        print(line, "not found")
     if line in dict_IDs.keys():
         line2=dict_IDs[line].split("\t")
         line3='\t'.join(map(str, line2))
