@@ -1,6 +1,8 @@
 #Given a tsv file with samples as rows and two columns describing the sample name (i.e. ID type 1 and ID type 2) 
 # and a list of names in format of ID type 2, 
 # print the corresponding ID type 1 value.
+#Be sure that for the reference table, the first column is the same ID type as the input list 
+#(i.e. ref column 1: external strain names, ref column 2: lims IDs, input list: external strain names)
 
 reference=input("What is the reference table?")
 ref=open(reference, "r")
@@ -14,8 +16,8 @@ values2=[]
 for record in ref:
     end=record.find("\t")
     end1=end+1
-    values.append(record[0:end1])
-    keys.append(record[end1:])
+    keys.append(record[0:end1])
+    values.append(record[end1:])
 for eachkey in keys:
     keys2.append(eachkey.replace("\n", "").replace("\t", ""))
 for eachvalue in values:
