@@ -1,5 +1,5 @@
 #SEARCH A TABLE AND PULL SELECTED INFORMATION FROM IT
-#You must provide: a reference table (csv, tsv, or xls file) with each sample as a row and each characteristic (age, gender, collection date, etc.) as a column;
+#You must provide: a reference table (tsv or xls file) with each sample as a row and each characteristic (age, gender, collection date, etc.) as a column;
 #the ID you will be using to look up samples must be the first column. It doesn't matter if there are column headers or not. 
 #You need to know the number of each column you want to output (i.e. first column is 1).
 #You must also provide: an input list with the sample IDs you want to look up (csv, tsv, xls, or txt file), with the IDs each on a separate line.
