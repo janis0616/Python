@@ -1,3 +1,4 @@
+#For Coursera - Genomic Data Science Specialization - Python course
 #WHAT ARE THE LENGTHS OF THE SEQUENCES IN THE MULTI-FASTA?
 #open the fasta file
 file=input("Input file:")
