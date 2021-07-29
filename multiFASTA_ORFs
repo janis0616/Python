@@ -1,5 +1,5 @@
 ###Needs troubleshooting, do not use
-
+#For Coursera - Genomic Data Science Specialization - Python course
 #DETERMINE LENGTHS OF ORFS
 #open the fasta file
 file=input("Input file:")
